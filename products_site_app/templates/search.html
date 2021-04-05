@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1 id="search_title">Search products by name or id</h1>
+    <div id="search_bar" class="flexed">
+        <div class="marginlr-10">
+            <p>Sort by:</p>
+        </div>
+        <div>
+            <a class="button rounded marginb-5" href="{% url 'products_site_app:search' 'name' search %}">Name</a>
+            <a class="button rounded marginb-5" href="{% url 'products_site_app:search' 'price' search %}">Price low</a>
+            <a class="button rounded marginb-5" href="{% url 'products_site_app:search' '-price' search %}">Price high</a>
+        </div>
+        <div id="search_cont" class="push_right">
+            <form action="{% url 'products_site_app:search' %}" method="POST">
+                <div class="search_sort">
+                    {% csrf_token %}
+                    <div id="search">
+                        <input type="search", name="search_by">
+                        <button class="search_sort" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <hr><hr>
+    {% if sort_by  %}
+        <p>Sorting by {{ sort_by }}</p>
+    {% endif %}
+    {% if products_name %}
+        <div class="flexed_products">
+            {% for i in products_name %}
+                <div id="details_div">
+                    <a href="{% url 'products_site_app:details' i.id %}"><div class="items">
+                        <div class="items_img">
+                            <img src="{{i.picture.url}}" alt="product picture">
+                        </div>
+                        <div class="items_infobox">
+                            <div class="items_text paddingt-20">
+                                <p>{{i.name}}</p>
+                            </div>
+                            <p class="items_price">{{i.price}} €</p>
+                            <button class="add_to_cart rounded">Details</button>
+                        </div>
+                    </div></a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1>No product found, try with different parameters</h1>
+    {% endif %}
+{% endblock %}

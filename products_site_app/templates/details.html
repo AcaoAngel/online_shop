@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <p>Product details page</p><hr><hr>
+    <div id="details_cont">
+        
+        <img src="{{details.picture.url}}" alt="product picture">
+        <h1>{{details.name}}</h1>
+        <h3>{{details.description}}</h3>
+        <h1>{{details.price}}€</h1>
+        <button data-id="{{details.id}}" data-action="add" class="add_to_cart rounded details_button">Add to cart</button>
+        <br><br>
+        <p>Product ID: {{details.id}}</p>
+    </div>
+
+{% endblock %}
+
+{% block script %}<script type="text/javascript" src="{% static 'cart.js' %}"></script>{% endblock %}

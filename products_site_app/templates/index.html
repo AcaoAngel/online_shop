@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+<div id="search">
+    <a class="button rounded" id="search_button" href="{% url 'products_site_app:search' %}">Search</a>
+</div>
+
+
+<div class="flexed_products">
+    {% for i in products %}
+        <div id="details_div">
+            <a href="{% url 'products_site_app:details' i.id %}"><div class="items">
+                <div class="items_img">
+                    <img src="{{i.picture}}" alt="product picture">
+                </div>
+                <div class="items_infobox">
+                    <div class="items_text paddingt-20">
+                        <p>{{i.name}}</p>
+                    </div>
+                    <p class="items_price">{{i.price}} €</p>
+                    <button data-id="{{i.id}}" data-action="add" class="add_to_cart rounded">Add to cart</button>
+                </div>
+            </div></a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+
+{% block script %}<script type="text/javascript" src="{% static 'cart.js' %}"></script>{% endblock %}

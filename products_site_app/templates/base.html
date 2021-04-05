@@ -1,0 +1,86 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}"/> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <title>Products site</title>
+    <script>
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+    </script>
+</head>
+<body>
+    {% if request.user.is_staff %}
+        <div id="new_product">
+            <a id="new_product_button" class="button rounded center_text" href="{% url 'products_site_app:products_form' %}">Add new product</a>
+        </div>
+    {% endif %}
+
+    <div id="header" class="flexed">
+        <div>
+            <a href="{% url 'products_site_app:index' %}"><img class="header_img" src="{% static 'logo.png' %}" alt="logo img"></a>
+        </div>
+        <div>
+            <a href="{% url 'products_site_app:index' %}"><h1 class="title-text-store">Store</h1></a>
+        </div>
+        <div>
+            <a href="{% url 'products_site_app:cart' %}"><img class="header_img" src="{% static 'shop_cart.png' %}" alt="Shoping cart"></a>
+        </div>
+        
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock content %}
+    </div>
+
+
+    <div id="footer">
+        <p id="footer_text">Voit ottää yhteyttä painamalla alla olevat linkit</p>
+        <div style="background-color: black;" class="flexed">
+            <div id="facebook_link">
+                <a class="hover_link" href="https://www.facebook.com/angelluis.acaomarquez/" target="_blank"><img src="{% static 'fb_logo.png' %}" alt="Facebook logo, Link" ></a>
+            </div>
+            <div id="instagram_link">
+                <a class="hover_link" href="https://www.instagram.com/angel_acao/?hl=es" target="_blank"><img src="{% static 'insta_logo.png' %}" alt="Instagram logo, Link" ></a>
+            </div>
+            <div id="youtube_link">
+                <a class="hover_link" href="https://www.youtube.com/channel/UC9C82FurzbhwlemLfEIuS6w?view_as=subscriber" target="_blank"><img src="{% static 'youtube_logo.png' %}" alt="Youtube logo, Link" ></a>
+            </div>
+            <div id="twitter_link">
+                <a class="hover_link" href="https://twitter.com/angel_acao" target="_blank"><img src="{% static 'twitter_logo.png' %}" alt="Twitter logo, Link" ></a>
+            </div>
+            <div id="linkedin_link">
+                <a class="hover_link" href="https://www.linkedin.com/in/angel-acao/" target="_blank"><img src="{% static 'linkedin_logo.png' %}" alt="Linkedin logo, Link" ></a>
+            </div>
+            <div id="gmail_link">
+                <a class="hover_link" href="mailto:angel.acao92@gmail.com" target="_blank"><img src="{% static 'gmail_logo.png' %}" alt="Gmail logo, Link" ></a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% block script %}{% endblock %}
+    
+</body>
+</html>

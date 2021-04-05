@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block content %}
+    <div id="cart_container">
+        <div id="cart_div" >
+            {% if cart %}
+                {% for i in cart %}
+                    <div id="cart_items" class="flexed_cart">
+                        <div class="cart_img">
+                            <img src="{{i.picture.url}}" alt="product picture">
+                        </div>
+                        <div class="cart_text">
+                            <p>{{i.name}}</p>
+                            <p>{{i.price}}€</p>
+                        </div>
+                        <div class="push_right">
+                            <p id="cart_quantity_text">Amount</p>
+                            <p id="cart_quantity">{{i.quantity}}</p>
+                        </div>
+                        <div class="flexed_vertically some_margin">
+                            <button data-id="{{i.product_id_id}}" data-action="add" class="add_remove rounded">+</button>
+                            <button data-id="{{i.product_id_id}}" data-action="remove" class="add_remove rounded">-</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="margin: auto; padding: 20px;">The shopping cart is empty</p>
+            {% endif %}
+        </div>
+        <div id="order_summary">
+            <h3>Order summary</h3><br>
+            <div class="flexed">
+                <div>
+                    <p>Subtotal</p>
+                    <p>Shipping</p>
+                </div>
+                <div>
+                    <p>{{subtotal}}</p>
+                    <p>{{shipping}}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="flexed">
+                <div>
+                    <p>Total</p>
+                </div>
+                <div>
+                    <p>{{total}}</p>
+                </div>
+            </div>
+            <button id="buy_button">Buy</button>
+
+        </div>
+        
+    </div>
+    
+{% endblock %}
+
+{% block script %}<script type="text/javascript" src="{% static 'add_remove.js' %}"></script>{% endblock %}

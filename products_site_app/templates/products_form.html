@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<form method="POST" ,="" enctype="multipart/form-data">  
+    <!-- <input type="hidden" name="csrfmiddlewaretoken" value="lSURBeNoV0AJ3ZjyhhONNT6b0w4wc3o8JxT4eTsMnj8FyVHmCICoGXolTni5Q2Mh">  -->
+    {% csrf_token %}
+    
+    <div id=form_box>
+        <h1>Add a new product</h1>
+    {% for field in form %}
+        <label class="form_label">{{ field.label_tag }}</label>
+        <p class="form_field">{{ field }}</p>
+        
+    {% endfor %}
+    
+    <div>
+        <input type="submit" class="btn btn-primary" value="Save">
+        <a href="{% url 'products_site_app:index'  %}" class="btn btn-back" role="button">Back</a><br>
+    </div>
+    </div>
+</form>
+
+{% endblock %}
